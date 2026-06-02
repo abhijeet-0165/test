@@ -1,0 +1,280 @@
+# CREATE SCRIPT
+
+nano script.sh
+vim script.sh
+
+# EXECUTE SCRIPT
+
+bash script.sh
+sh script.sh
+
+# GIVE EXECUTE PERMISSION
+
+chmod +x script.sh
+
+# RUN SCRIPT
+
+./script.sh
+
+#################################################
+
+# DEBUGGING
+
+bash -x script.sh
+
+#################################################
+
+# VARIABLES
+
+name="Abhijeet"
+
+echo $name
+
+age=20
+
+echo $age
+
+#################################################
+
+# USER INPUT
+
+read name
+
+echo $name
+
+read -p "Enter Name: " name
+
+#################################################
+
+# POSITIONAL PARAMETERS
+
+echo $1
+echo $2
+echo $3
+
+#################################################
+
+# PASS PARAMETERS
+
+./script.sh hello world
+
+#################################################
+
+# SPECIAL PARAMETERS
+
+echo $0
+echo $1
+echo $2
+
+echo $#
+echo $@
+
+echo $?
+
+echo $$
+
+#################################################
+
+# PARAMETER EXPANSION
+
+echo ${name}
+
+echo ${name:-Guest}
+
+echo ${name:=Guest}
+
+echo ${name:+Present}
+
+#################################################
+
+# ARITHMETIC
+
+a=10
+b=20
+
+echo $((a+b))
+
+echo $((a-b))
+
+echo $((a*b))
+
+echo $((a/b))
+
+#################################################
+
+# IF
+
+if [ $a -gt 10 ]
+then
+    echo "Greater"
+fi
+
+#################################################
+
+# IF ELSE
+
+if [ $a -gt 10 ]
+then
+    echo "Greater"
+else
+    echo "Smaller"
+fi
+
+#################################################
+
+# IF ELIF ELSE
+
+if [ $a -gt 10 ]
+then
+    echo "Greater"
+elif [ $a -eq 10 ]
+then
+    echo "Equal"
+else
+    echo "Smaller"
+fi
+
+#################################################
+
+# CASE
+
+case $choice in
+1) echo "One" ;;
+2) echo "Two" ;;
+3) echo "Three" ;;
+*) echo "Invalid" ;;
+esac
+
+#################################################
+
+# FOR LOOP
+
+for i in 1 2 3 4 5
+do
+    echo $i
+done
+
+#################################################
+
+# FOR LOOP (C STYLE)
+
+for ((i=1;i<=5;i++))
+do
+    echo $i
+done
+
+#################################################
+
+# WHILE LOOP
+
+i=1
+
+while [ $i -le 5 ]
+do
+    echo $i
+    ((i++))
+done
+
+#################################################
+
+# UNTIL LOOP
+
+i=1
+
+until [ $i -gt 5 ]
+do
+    echo $i
+    ((i++))
+done
+
+#################################################
+
+# TEST COMMAND
+
+test 10 -gt 5
+
+echo $?
+
+#################################################
+
+# STRING TESTS
+
+[ "$a" = "$b" ]
+
+[ "$a" != "$b" ]
+
+[ -z "$a" ]
+
+[ -n "$a" ]
+
+#################################################
+
+# NUMBER TESTS
+
+[ $a -eq $b ]
+
+[ $a -ne $b ]
+
+[ $a -gt $b ]
+
+[ $a -lt $b ]
+
+[ $a -ge $b ]
+
+[ $a -le $b ]
+
+#################################################
+
+# FILE TESTS
+
+[ -f file.txt ]
+
+[ -d folder ]
+
+[ -r file.txt ]
+
+[ -w file.txt ]
+
+[ -x script.sh ]
+
+#################################################
+
+# DOUBLE BRACKETS
+
+[[ $a -gt 10 ]]
+
+[[ "$name" == "Abhijeet" ]]
+
+#################################################
+
+# LOGICAL OPERATORS
+
+[ $a -gt 10 ] && echo "Yes"
+
+[ $a -gt 10 ] || echo "No"
+
+#################################################
+
+# COMMAND SUBSTITUTION
+
+today=$(date)
+
+echo $today
+
+#################################################
+
+# COUNT ARGUMENTS
+
+echo $#
+
+#################################################
+
+# SHOW ALL ARGUMENTS
+
+echo $@
+
+#################################################
+
+# EXIT STATUS
+
+echo $?
