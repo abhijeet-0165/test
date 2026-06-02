@@ -6,7 +6,7 @@ hostname
 date
 cal
 tty
-
+tar -xJvf backup.tar.xz
 
 sed 's/old/new/' file.txt
 sed -i 's/old/new/' file.txt
