@@ -1,2 +1,51 @@
-pwd 
-hello
+who
+whoami
+id
+uname -a
+hostname
+date
+cal
+tty
+
+
+rm file1.txt
+rm file1.txt file2.txt
+rm -r project
+rm -rf project
+
+chmod 755 script.sh
+chmod 777 file1.txt
+chmod 644 file1.txt
+chmod +x script.sh
+
+chown user file1.txt
+chown user:group file1.txt
+chown -R user:group project
+
+apt update
+apt upgrade
+apt install nginx
+apt install vim
+apt remove nginx
+apt purge nginx
+apt autoremove
+dpkg -i package.deb
+dpkg -l
+dpkg -r package_name
+ip a
+ip addr show
+ip link show
+ping google.com
+ping 8.8.8.8
+traceroute google.com
+netstat -tuln
+netstat -an
+nmcli device status
+nmcli connection show
+adduser john
+deluser john
+groupadd developers
+usermod -aG developers john
+grep john /etc/passwd
+grep developers /etc/group
+passwd john
