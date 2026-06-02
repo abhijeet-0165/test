@@ -8,6 +8,12 @@ cal
 tty
 
 
+sed 's/old/new/' file.txt
+sed -i 's/old/new/' file.txt
+sed -i 's/old/new/g' file.txt
+arr[1]=50
+
+
 rm file1.txt
 rm file1.txt file2.txt
 rm -r project
