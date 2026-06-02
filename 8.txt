@@ -1,0 +1,488 @@
+====================================================
+LINUX EXAM IMPORTANT COMMANDS CHEAT SHEET
+====================================================
+
+====================================================
+1. SYSTEMCTL (SERVICE MANAGEMENT)
+====================================================
+
+Check Service Status
+systemctl status ssh
+
+Start Service
+systemctl start ssh
+
+Stop Service
+systemctl stop ssh
+
+Restart Service
+systemctl restart ssh
+
+Enable Service at Boot
+systemctl enable ssh
+
+Disable Service at Boot
+systemctl disable ssh
+
+Check if Enabled
+systemctl is-enabled ssh
+
+Check if Running
+systemctl is-active ssh
+
+====================================================
+2. SSH KEY GENERATION
+====================================================
+
+Generate RSA Key Pair
+ssh-keygen -t rsa
+
+Generate RSA 4096-bit Key
+ssh-keygen -t rsa -b 4096
+
+Copy Public Key to Server
+ssh-copy-id user@ip
+
+Connect to Server
+ssh user@ip
+
+Default SSH Port
+22
+
+====================================================
+3. UFW FIREWALL
+====================================================
+
+Enable Firewall
+ufw enable
+
+Disable Firewall
+ufw disable
+
+Check Status
+ufw status
+
+Allow Port
+ufw allow 22
+
+Allow HTTP
+ufw allow 80
+
+Allow HTTPS
+ufw allow 443
+
+Deny Port
+ufw deny 80
+
+Limit Repeated Connections
+ufw limit 22
+
+Delete Rule
+ufw delete allow 80
+
+====================================================
+4. LVM (LOGICAL VOLUME MANAGER)
+====================================================
+
+Create Physical Volume
+pvcreate /dev/sdb
+
+Show Physical Volumes
+pvs
+
+Create Volume Group
+vgcreate myvg /dev/sdb
+
+Show Volume Groups
+vgs
+
+Create Logical Volume
+lvcreate -L 50G -n mylv myvg
+
+Show Logical Volumes
+lvs
+
+Extend Logical Volume
+lvextend -L +20G /dev/myvg/mylv
+
+Hierarchy:
+PV -> VG -> LV
+
+====================================================
+5. CUT COMMAND
+====================================================
+
+Display First Field
+cut -d "," -f1 file.txt
+
+Display Second Field
+cut -d "," -f2 file.txt
+
+Example:
+Amit,20
+Rahul,21
+
+cut -d "," -f1 file.txt
+
+Output:
+Amit
+Rahul
+
+====================================================
+6. SORT COMMAND
+====================================================
+
+Sort Alphabetically
+sort file.txt
+
+Sort Numerically
+sort -n file.txt
+
+Reverse Sort
+sort -r file.txt
+
+Numeric Reverse Sort
+sort -nr file.txt
+
+====================================================
+7. TSHARK
+====================================================
+
+Capture Traffic
+tshark
+
+Capture Specific Interface
+tshark -i eth0
+
+List Interfaces
+tshark -D
+
+====================================================
+8. STRING MANIPULATION
+====================================================
+
+Length of String
+echo ${#str}
+
+Substring
+echo ${str:2:3}
+
+Replace Text
+echo ${str/old/new}
+
+Global Replace
+echo ${str//old/new}
+
+Convert to Uppercase
+echo ${str^^}
+
+Convert to Lowercase
+echo ${str,,}
+
+====================================================
+9. KUBECTL
+====================================================
+
+Create Pod
+kubectl run mypod --image=nginx
+
+List Pods
+kubectl get pods
+
+Describe Pod
+kubectl describe pod mypod
+
+View Logs
+kubectl logs mypod
+
+Delete Pod
+kubectl delete pod mypod
+
+====================================================
+10. DOCKER
+====================================================
+
+Download Image
+docker pull ubuntu
+
+Run Container
+docker run ubuntu
+
+Interactive Container
+docker run -it ubuntu
+
+Show Running Containers
+docker ps
+
+Show All Containers
+docker ps -a
+
+Execute Command in Container
+docker exec -it container_id bash
+
+Stop Container
+docker stop container_id
+
+Remove Container
+docker rm container_id
+
+List Images
+docker images
+
+====================================================
+11. TAR (BACKUP & RESTORE)
+====================================================
+
+Create Archive
+tar -cvf backup.tar folder/
+
+Extract Archive
+tar -xvf backup.tar
+
+Create Compressed Archive
+tar -czvf backup.tar.gz folder/
+
+Extract Compressed Archive
+tar -xzvf backup.tar.gz
+
+Options:
+c = create
+x = extract
+v = verbose
+f = file
+z = gzip compression
+
+====================================================
+12. CRONTAB
+====================================================
+
+Edit Cron Jobs
+crontab -e
+
+List Cron Jobs
+crontab -l
+
+Delete Cron Jobs
+crontab -r
+
+Cron Format:
+Minute Hour Day Month Weekday
+
+Examples:
+
+Every Minute
+* * * * *
+
+Daily at 10 PM
+0 22 * * *
+
+Daily at 6 AM
+0 6 * * *
+
+====================================================
+13. GREP
+====================================================
+
+Search Text
+grep "linux" file.txt
+
+Ignore Case
+grep -i "linux" file.txt
+
+Show Line Numbers
+grep -n "linux" file.txt
+
+Count Matches
+grep -c "linux" file.txt
+
+Recursive Search
+grep -r "linux" .
+
+====================================================
+14. SED
+====================================================
+
+Replace First Occurrence
+sed 's/Linux/Ubuntu/' file.txt
+
+Replace All Occurrences
+sed 's/Linux/Ubuntu/g' file.txt
+
+Delete Line 2
+sed '2d' file.txt
+
+====================================================
+15. HEAD & TAIL
+====================================================
+
+First 10 Lines
+head file.txt
+
+First 5 Lines
+head -5 file.txt
+
+Last 10 Lines
+tail file.txt
+
+Last 5 Lines
+tail -5 file.txt
+
+Follow Live Log
+tail -f file.txt
+
+====================================================
+16. STDOUT & STDERR
+====================================================
+
+Redirect Output
+ls > output.txt
+
+Redirect Errors
+ls xyz 2> error.txt
+
+Redirect Both
+command > output.txt 2> error.txt
+
+Append Output
+command >> output.txt
+
+Important:
+1 = stdout
+2 = stderr
+
+====================================================
+17. ARRAYS
+====================================================
+
+Create Array
+arr=("A" "B" "C")
+
+Access Element
+echo ${arr[0]}
+
+Print All Elements
+echo ${arr[@]}
+
+Array Size
+echo ${#arr[@]}
+
+Input Array
+read -a arr
+
+Add Element
+arr+=("D")
+
+Delete Element
+unset arr[1]
+
+Replace Element
+arr[1]="X"
+
+Loop Through Array
+
+for item in "${arr[@]}"
+do
+    echo $item
+done
+
+====================================================
+18. DF (DISK FREE)
+====================================================
+
+Show Disk Usage
+df
+
+Human Readable
+df -h
+
+Filesystem Type
+df -T
+
+====================================================
+19. DATE
+====================================================
+
+Current Date & Time
+date
+
+Year Only
+date +%Y
+
+Month Only
+date +%m
+
+Day Only
+date +%d
+
+Current Time
+date +%T
+
+====================================================
+20. IP COMMAND
+====================================================
+
+Show IP Address
+ip addr
+
+Show Routes
+ip route
+
+Show Interfaces
+ip link
+
+====================================================
+21. TOP & HTOP
+====================================================
+
+System Monitor
+top
+
+Advanced System Monitor
+htop
+
+Difference:
+top  = basic
+htop = interactive and colorful
+
+====================================================
+VERY IMPORTANT MCQs
+====================================================
+
+SSH Port          = 22
+HTTP Port         = 80
+HTTPS Port        = 443
+
+stdout            = 1
+stderr            = 2
+
+Cron              = Repeated Tasks
+At                = One-Time Tasks
+
+Docker            = Containers
+KVM               = Virtual Machines
+
+PV -> VG -> LV
+
+grep              = Search Text
+sed               = Stream Editor
+cut               = Extract Columns
+sort              = Sort Data
+
+df                = Disk Space
+date              = Date & Time
+
+top               = Process Monitor
+htop              = Advanced Process Monitor
+
+systemctl start   = Start Service Now
+systemctl enable  = Start Service at Boot
+
+tar -cvf          = Create Archive
+tar -xvf          = Extract Archive
+
+kubectl logs      = View Pod Logs
+kubectl describe  = Pod Details
+
+ufw allow         = Allow Traffic
+ufw deny          = Block Traffic
+ufw limit         = Limit Repeated Attempts
