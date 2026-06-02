@@ -1,0 +1,307 @@
+# SHELL SCRIPT STAR PATTERNS
+
+## 1. Solid Square
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=5;j++))
+    do
+        echo -n "* "
+    done
+    echo
+done
+```
+
+Output:
+
+```text
+* * * * *
+* * * * *
+* * * * *
+* * * * *
+* * * * *
+```
+
+---
+
+## 2. Hollow Square
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=5;j++))
+    do
+        if [ $i -eq 1 ] || [ $i -eq 5 ] || [ $j -eq 1 ] || [ $j -eq 5 ]
+        then
+            echo -n "* "
+        else
+            echo -n "  "
+        fi
+    done
+    echo
+done
+```
+
+Output:
+
+```text
+* * * * *
+*       *
+*       *
+*       *
+* * * * *
+```
+
+---
+
+## 3. Right Triangle
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "* "
+    done
+    echo
+done
+```
+
+Output:
+
+```text
+*
+* *
+* * *
+* * * *
+* * * * *
+```
+
+---
+
+## 4. Reverse Triangle
+
+```bash
+for ((i=5;i>=1;i--))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "* "
+    done
+    echo
+done
+```
+
+Output:
+
+```text
+* * * * *
+* * * *
+* * *
+* *
+*
+```
+
+---
+
+## 5. Pyramid
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=i;j<5;j++))
+    do
+        echo -n " "
+    done
+
+    for ((k=1;k<=((2*i-1));k++))
+    do
+        echo -n "*"
+    done
+
+    echo
+done
+```
+
+Output:
+
+```text
+    *
+   ***
+  *****
+ *******
+*********
+```
+
+---
+
+## 6. Inverted Pyramid
+
+```bash
+for ((i=5;i>=1;i--))
+do
+    for ((j=5;j>i;j--))
+    do
+        echo -n " "
+    done
+
+    for ((k=1;k<=((2*i-1));k++))
+    do
+        echo -n "*"
+    done
+
+    echo
+done
+```
+
+Output:
+
+```text
+*********
+ *******
+  *****
+   ***
+    *
+```
+
+---
+
+## 7. Hollow Pyramid
+
+```bash
+rows=5
+
+for ((i=1;i<=rows;i++))
+do
+    for ((j=i;j<rows;j++))
+    do
+        echo -n " "
+    done
+
+    for ((k=1;k<=2*i-1;k++))
+    do
+        if [ $k -eq 1 ] || [ $k -eq $((2*i-1)) ] || [ $i -eq $rows ]
+        then
+            echo -n "*"
+        else
+            echo -n " "
+        fi
+    done
+
+    echo
+done
+```
+
+Output:
+
+```text
+    *
+   * *
+  *   *
+ *     *
+*********
+```
+
+---
+
+## 8. Diamond
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=i;j<5;j++))
+    do
+        echo -n " "
+    done
+
+    for ((k=1;k<=2*i-1;k++))
+    do
+        echo -n "*"
+    done
+
+    echo
+done
+
+for ((i=4;i>=1;i--))
+do
+    for ((j=5;j>i;j--))
+    do
+        echo -n " "
+    done
+
+    for ((k=1;k<=2*i-1;k++))
+    do
+        echo -n "*"
+    done
+
+    echo
+done
+```
+
+Output:
+
+```text
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *
+```
+
+---
+
+## 9. Number Triangle
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "$j "
+    done
+    echo
+done
+```
+
+Output:
+
+```text
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5
+```
+
+---
+
+## 10. Floyd's Triangle
+
+```bash
+num=1
+
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "$num "
+        num=$((num+1))
+    done
+    echo
+done
+```
+
+Output:
+
+```text
+1
+2 3
+4 5 6
+7 8 9 10
+11 12 13 14 15
+```
