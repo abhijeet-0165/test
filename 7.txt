@@ -1,0 +1,384 @@
+Linux Administration and Shell Scripting
+Coding Questions with Solutions
+Question 1  [Beginner]  Arrays - Basic Declaration and Display
+Question:
+Declare an array named fruits containing apple, banana, mango, and orange. Display all elements of the array.
+Solution:
+#!/bin/bash
+fruits=(apple banana mango orange)
+echo "${fruits[@]}"
+
+Question 2  [Beginner]  Arrays - Access by Index
+Question:
+Declare an array colors=(red green blue yellow). Print the first, second, and last element using index.
+Solution:
+#!/bin/bash
+colors=(red green blue yellow)
+echo "${colors[0]}"
+echo "${colors[1]}"
+echo "${colors[3]}"
+
+Question 3  [Beginner]  Arrays - Count Elements
+Question:
+Read an array named item_array from user input on a single line. Print the total number of elements in the array.
+Solution:
+#!/bin/bash
+read -a item_array
+echo "${#item_array[@]}"
+
+Question 4  [Beginner]  Shell Scripting - Perimeter of Rectangle
+Question:
+Write a shell script to find the perimeter of a rectangle. Accept length L and breadth B from the user. Sample Input: 10 20  |  Sample Output: 60
+Solution:
+#!/bin/bash
+read L B
+perimeter=$(( 2 * (L + B) ))
+echo "$perimeter"
+
+Question 5  [Beginner]  Shell Scripting - Even or Odd Function
+Question:
+Write a shell script that defines a function check_even_odd() which accepts a number as argument and prints Even or Odd.
+Solution:
+#!/bin/bash
+check_even_odd() {
+    local n=$1
+    if (( n % 2 == 0 )); then
+        echo "Even"
+    else
+        echo "Odd"
+    fi
+}
+read num
+check_even_odd $num
+
+Question 6  [Beginner]  Substring Extraction
+Question:
+Read a string str, a position P, and a length L from the user. Extract and store a substring of length L starting from position P in variable substr. Index starts from 0.
+Solution:
+#!/bin/bash
+read str
+read P
+read L
+substr="${str:P:L}"
+echo "$substr"
+
+Question 7  [Beginner]  cut Command - Field Extraction
+Question:
+A file registration.txt has colon-delimited records (Name:ID:Marks:Branch). Write a command to display only the 2nd and 4th fields.
+Solution:
+cut -d ":" -f 2,4 registration.txt
+
+Question 8  [Beginner]  User and Group Management
+Question:
+Write suitable commands to: (1) Create a group named developers with GID 2000. (2) Create users admin1 and admin2 with developers as their primary group.
+Solution:
+groupadd -g 2000 developers
+useradd -g developers admin1
+useradd -g developers admin2
+
+Question 9  [Beginner]  tar - Archive Creation
+Question:
+Create 5 empty files named sub1.txt through sub5.txt inside a new directory newtest. Then create a tar archive named result.tar containing all five files.
+Solution:
+mkdir newtest
+cd newtest
+touch sub{1..5}.txt
+tar -cvf result.tar sub{1..5}.txt
+
+Question 10  [Beginner]  sort Command
+Question:
+A file record.txt has space-separated employee records with UID as the first field. Write a command to sort the file numerically by the UID field.
+Solution:
+sort -n record.txt
+
+Question 11  [Intermediate]  Arrays - Adding Elements
+Question:
+Declare an array nums=(10 20 30). Add the element 40 at the end of the array and display the updated array.
+Solution:
+#!/bin/bash
+nums=(10 20 30)
+nums+=(40)
+echo "${nums[@]}"
+
+Question 12  [Intermediate]  Arrays - Deleting an Element
+Question:
+Declare an array data=(A B C D E). Delete the element at index 2 using unset and display the remaining elements.
+Solution:
+#!/bin/bash
+data=(A B C D E)
+unset data[2]
+echo "${data[@]}"
+
+Question 13  [Intermediate]  Arrays - Search Element
+Question:
+Read an array from user input. Search for a specific element entered by the user and print its index, or print 'Not Found' if it does not exist.
+Solution:
+#!/bin/bash
+read -a arr
+read target
+found=0
+for i in "${!arr[@]}"; do
+    if [[ "${arr[$i]}" == "$target" ]]; then
+        echo "Found at index $i"
+        found=1
+        break
+    fi
+done
+(( found == 0 )) && echo "Not Found"
+
+Question 14  [Intermediate]  Arrays - Replace Element
+Question:
+Declare an array scores=(50 60 70 80 90). Replace the element at index 2 with 75 and display the updated array.
+Solution:
+#!/bin/bash
+scores=(50 60 70 80 90)
+scores[2]=75
+echo "${scores[@]}"
+
+Question 15  [Intermediate]  Arrays - Sort in Ascending Order
+Question:
+Write a shell script to read an array of integers from user input and display them sorted in ascending order. Sample Input: 1000 10 50 75 25  |  Sample Output: 10 25 50 75 1000
+Solution:
+#!/bin/bash
+read -a arr
+sorted=($(printf "%s\n" "${arr[@]}" | sort -n))
+echo "${sorted[@]}"
+
+Question 16  [Intermediate]  Shell Functions - add and factorial
+Question:
+Write a shell script defining two functions: add() that accepts two arguments and prints their sum, and factorial() that accepts one argument and prints its factorial. Call them from stub code.
+Solution:
+#!/bin/bash
+add() {
+    local n1=$1
+    local n2=$2
+    echo $(( n1 + n2 ))
+}
+factorial() {
+    local num=$1
+    local fact=1
+    for (( i=1; i<=num; i++ )); do
+        fact=$(( fact * i ))
+    done
+    echo $fact
+}
+
+Question 17  [Intermediate]  Menu-Driven Script
+Question:
+Write a menu-driven shell script using case with options: 1) Add two numbers, 2) Check even/odd, 3) Print current SHELL, 4 or default) Print 'Invalid choice'.
+Solution:
+#!/bin/bash
+read ch
+case $ch in
+    1)
+        read n1 n2
+        echo "Sum=$(( n1 + n2 ))"
+        ;;
+    2)
+        read n
+        if (( n % 2 == 0 )); then
+            echo "Even number"
+        else
+            echo "Odd number"
+        fi
+        ;;
+    3)
+        echo "$SHELL"
+        ;;
+    *)
+        echo "Invalid choice"
+        ;;
+esac
+
+Question 18  [Intermediate]  Nested Loops - Number Pattern
+Question:
+Write a shell script using nested loops to print the following number pattern. Accept the number of rows n from the user. For n=3: row 1 prints 1, row 2 prints 12, row 3 prints 123.
+Solution:
+#!/bin/bash
+read n
+for (( i=1; i<=n; i++ )); do
+    for (( j=1; j<=i; j++ )); do
+        echo -n "$j"
+    done
+    echo
+done
+
+Question 19  [Intermediate]  paste Command
+Question:
+Two files item.txt and rate.txt exist in the current directory. Use a single command to combine them side-by-side so each line shows an item and its corresponding rate.
+Solution:
+paste item.txt rate.txt
+
+Question 20  [Intermediate]  sort with Key Field
+Question:
+A file record.txt has records: UID NAME DEPT SAL MGR. Write a command to sort the file numerically by the first field (UID) specifically.
+Solution:
+sort -k1 -n record.txt
+
+Question 21  [Advanced]  Arrays - Menu-Driven Program
+Question:
+Write a menu-driven shell script that reads all elements of an array at once, then offers: 1) Display all elements, 2) Display the 3rd element, 3) Display the total count, 4) Add a new element to the end, default) Display all elements.
+Solution:
+#!/bin/bash
+read -a arr
+read ch
+case $ch in
+    1) echo "${arr[@]}" ;;
+    2) echo "${arr[2]}" ;;
+    3) echo "${#arr[@]}" ;;
+    4)
+        read x
+        arr+=($x)
+        echo "${arr[@]}"
+        ;;
+    *) echo "${arr[@]}" ;;
+esac
+
+Question 22  [Advanced]  cron - Schedule a Backup Script
+Question:
+Write a cron entry to run a backup script /home/user/backup.sh every day at 2:30 AM. Also write the cron entry to run a log cleanup script /opt/cleanup.sh every Monday at midnight.
+Solution:
+# Edit crontab with: crontab -e
+
+# Run backup.sh every day at 2:30 AM
+30 2 * * * /home/user/backup.sh
+
+# Run cleanup.sh every Monday at midnight
+0 0 * * 1 /opt/cleanup.sh
+
+Question 23  [Advanced]  at - One-time Scheduled Task
+Question:
+Use the at command to schedule a one-time task that writes 'Maintenance complete' to /tmp/status.txt at 11:45 PM tonight. Also show how to list and remove scheduled at jobs.
+Solution:
+# Schedule the task
+echo "echo 'Maintenance complete' > /tmp/status.txt" | at 23:45
+
+# List pending at jobs
+atq
+
+# Remove a job by job number (e.g. job 3)
+atrm 3
+
+Question 24  [Advanced]  systemd Timer - Create a Timer Unit
+Question:
+Create a systemd service unit and a corresponding timer unit to run a script /opt/report.sh every 5 minutes. Show the unit file contents and the commands to enable and start the timer.
+Solution:
+# /etc/systemd/system/report.service
+[Unit]
+Description=Run report script
+
+[Service]
+ExecStart=/opt/report.sh
+
+
+# /etc/systemd/system/report.timer
+[Unit]
+Description=Run report every 5 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+Unit=report.service
+
+[Install]
+WantedBy=timers.target
+
+
+# Enable and start
+sudo systemctl daemon-reload
+sudo systemctl enable report.timer
+sudo systemctl start report.timer
+systemctl list-timers
+
+Question 25  [Advanced]  systemctl - Service Management
+Question:
+Write the systemctl commands to: (1) Start the nginx service, (2) Enable it to start at boot, (3) Check its status, (4) Reload its configuration without restarting, (5) Disable and stop it.
+Solution:
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+sudo systemctl reload nginx
+sudo systemctl disable nginx
+sudo systemctl stop nginx
+
+Question 26  [Advanced]  UFW - Firewall Rules
+Question:
+Write UFW commands to: (1) Enable UFW, (2) Allow SSH (port 22), (3) Allow HTTP and HTTPS, (4) Deny port 23 (telnet), (5) Check UFW status with rule numbers.
+Solution:
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw deny 23
+sudo ufw status numbered
+
+Question 27  [Advanced]  Docker - Container Operations
+Question:
+Write Docker commands to: (1) Pull the ubuntu image, (2) Run a container named mybox in detached mode with bash, (3) List running containers, (4) Execute a command inside the running container, (5) Stop and remove the container.
+Solution:
+docker pull ubuntu
+docker run -dit --name mybox ubuntu bash
+docker ps
+docker exec -it mybox bash
+docker stop mybox
+docker rm mybox
+
+Question 28  [Advanced]  KVM - Virtual Machine Management
+Question:
+Write commands to: (1) Check if KVM virtualization is supported on the host, (2) Install KVM and related tools on Ubuntu, (3) List all running virtual machines, (4) Start a VM named testvm, (5) Show the VNC display for a VM.
+Solution:
+# Check KVM support
+egrep -c '(vmx|svm)' /proc/cpuinfo
+kvm-ok
+
+# Install KVM tools
+sudo apt install -y qemu-kvm libvirt-daemon-system virtinst bridge-utils
+
+# List all VMs
+virsh list --all
+
+# Start a VM
+virsh start testvm
+
+# Show VNC port for a VM
+virsh vncdisplay testvm
+
+Question 29  [Advanced]  AppArmor - Profile Management
+Question:
+Write commands to: (1) Check AppArmor status, (2) List all loaded profiles with their modes, (3) Put a profile in complain mode, (4) Put a profile in enforce mode, (5) Disable a specific profile.
+Solution:
+# Check AppArmor status
+sudo apparmor_status
+sudo aa-status
+
+# List profiles
+sudo aa-status | grep -E 'enforce|complain'
+
+# Set profile to complain mode
+sudo aa-complain /usr/bin/firefox
+
+# Set profile to enforce mode
+sudo aa-enforce /usr/bin/firefox
+
+# Disable a profile
+sudo aa-disable /usr/bin/firefox
+
+Question 30  [Advanced]  MicroK8s - Kubernetes Basics
+Question:
+Write commands to: (1) Install MicroK8s on Ubuntu, (2) Check cluster status, (3) Enable the DNS and dashboard addons, (4) Deploy an nginx pod, (5) List all running pods.
+Solution:
+# Install MicroK8s
+sudo snap install microk8s --classic
+sudo usermod -aG microk8s $USER
+
+# Check status
+microk8s status --wait-ready
+
+# Enable addons
+microk8s enable dns dashboard
+
+# Deploy nginx
+microk8s kubectl create deployment nginx --image=nginx
+
+# List pods
+microk8s kubectl get pods
