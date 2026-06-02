@@ -1,0 +1,334 @@
+2 Marks – Subjective Practice Questions
+Q1. Write a single command to create a directory called 'projects' and a subdirectory called 'src' inside it in one step.
+Solution:
+mkdir -p projects/src
+Q2. Write the command to display the first 5 lines of a file called 'logfile.txt'.
+Solution:
+head -5 logfile.txt
+Q3. Write the command to change the owner of the file 'report.txt' to user 'john' and group 'staff'.
+Solution:
+chown john:staff report.txt
+Q4. Write the command to list all files (including hidden files) in the current directory with detailed information.
+Solution:
+ls -la
+Q5. Write the command to sort the contents of 'names.txt' in reverse alphabetical order and save the result to 'sorted_names.txt'.
+Solution:
+sort -r names.txt > sorted_names.txt
+Q6. Write the command to find all running processes owned by the user 'admin' and display only their PID and command name.
+Solution:
+ps -u admin -o pid,comm
+Q7. Write the command to extract the second field from a colon-delimited file '/etc/passwd' and display only the first 5 entries.
+Solution:
+cut -d: -f2 /etc/passwd | head -5
+Q8. Write the command to create a compressed tar archive called 'backup.tar.gz' of the directory '/home/user/documents'.
+Solution:
+tar -czf backup.tar.gz /home/user/documents
+Q9. Write the command to configure a cron job that runs the script '/opt/scripts/cleanup.sh' at 2:15 AM every Monday.
+Solution:
+# Add the following entry using: crontab -e
+15 2 * * 1 /opt/scripts/cleanup.sh
+Q10. Write the commands to create a new partition on /dev/sdb, format it with ext4 file system, and mount it permanently on /mnt/data.
+Solution:
+fdisk /dev/sdb
+# Inside fdisk: n (new partition), p (primary), 1, Enter, Enter, w (write)
+mkfs.ext4 /dev/sdb1
+mkdir -p /mnt/data
+mount /dev/sdb1 /mnt/data
+# For permanent mount, add to /etc/fstab:
+echo '/dev/sdb1 /mnt/data ext4 defaults 0 2' >> /etc/fstab
+5 Marks - Practice Coding Questions
+Q1. Write a shell script that accepts three numbers as command-line arguments and displays their sum, average (integer division), and the largest number among them.
+Solution:
+#!/bin/bash
+a=$1
+b=$2
+c=$3
+sum=$((a + b + c))
+avg=$((sum / 3))
+largest=$a
+if [ $b -gt $largest ]; then
+    largest=$b
+fi
+if [ $c -gt $largest ]; then
+    largest=$c
+fi
+echo "Sum: $sum"
+echo "Average: $avg"
+echo "Largest: $largest"
+Q2. Write the suitable commands for the following operations:
+(i) Create two users 'devuser1' and 'devuser2' with their home directories.
+(ii) Create a group called 'developers' with the GID of 3001.
+(iii) Add both users to the 'developers' group as a supplementary group.
+(iv) Verify the group membership by displaying the 'developers' group entry.
+Solution:
+useradd -m devuser1
+useradd -m devuser2
+groupadd -g 3001 developers
+usermod -aG developers devuser1
+usermod -aG developers devuser2
+Q3. Write a shell script that defines a function called 'find_stats' which accepts an array of integers as arguments. The function should calculate and display the count of elements, the sum of all elements, the minimum value, and the maximum value. Call the function with the values: 45 12 78 3 56 91 24.
+Solution:
+#!/bin/bash
+find_stats() {
+    local arr=("$@")
+    local count=${arr[@]}
+    local sum=0
+    local min=${arr[0]}
+    local max=${arr[0]}
+    for val in "${arr[@]}"; do
+        sum=$((sum + val))
+        if [ $val -lt $min ]; then
+            min=$val
+        fi
+        if [ $val -gt $max ]; then
+            max=$val
+        fi
+    done
+    echo "Count: $count"
+    echo "Sum: $sum"
+    echo "Min: $min"
+    echo "Max: $max"
+}
+find_stats 45 12 78 3 56 91 24
+Q4. Write a shell script that reads a directory path as a command-line argument and performs the following:
+(i) Check if the directory exists. If not, display an error message and exit.
+(ii) Count and display the total number of files and directories inside the given path.
+(iii) For each item, use a 'for' loop and 'case' or 'if' to classify it as a 'File' or 'Directory' and print its name with the classification.
+Solution:
+#!/bin/bash
+dirpath=$1
+if [ ! -d "$dirpath" ]; then
+    echo "Error: Directory does not exist"
+    exit 1
+fi
+file_count=0
+dir_count=0
+for item in "$dirpath"/*; do
+    if [ -f "$item" ]; then
+        file_count=$((file_count + 1))
+        echo "File: $(basename $item)"
+    elif [ -d "$item" ]; then
+        dir_count=$((dir_count + 1))
+        echo "Directory: $(basename $item)"
+    fi
+done
+echo "Total Files: $file_count"
+echo "Total Directories: $dir_count"
+
+2 Marks – Subjective Practice Questions
+Q1. Write the command to display the type and location of the 'ls' command.
+Solution:
+which ls
+# OR
+type ls
+Q2. Write the command to rename a file 'old_report.txt' to 'new_report.txt'.
+Solution:
+mv old_report.txt new_report.txt
+Q3. Write the command to display the last 10 lines of '/var/log/syslog' in real-time as new lines are added.
+Solution:
+tail -f /var/log/syslog
+Q4. Write the command to display the current date and time in the format 'YYYY-MM-DD HH:MM:SS'.
+Solution:
+date '+%Y-%m-%d %H:%M:%S'
+Q5. Write the command to find all files larger than 100MB in the /home directory.
+Solution:
+find /home -type f -size +100M
+Q6. Write the commands to create a user 'testuser', set the password to expire after 90 days, and lock the account.
+Solution:
+useradd testuser
+chage -M 90 testuser
+usermod -L testuser
+Q7. Write a single command pipeline to count the number of unique lines in a file called 'access.log'.
+Solution:
+sort access.log | uniq | wc -l
+Q8. Write the command to display the IP address configuration of all network interfaces using the 'ip' command.
+Solution:
+ip addr show
+# OR
+ip a
+Q9. Write the commands to enable the UFW firewall, allow HTTP (port 80) and HTTPS (port 443) traffic, and deny all other incoming connections.
+Solution:
+ufw default deny incoming
+ufw allow 80
+ufw allow 443
+ufw enable
+Q10. Write the command to create an rsync backup of '/home/user/data' to '/backup/data' preserving permissions, showing progress, and excluding '*.tmp' files.
+Solution:
+rsync -avh --progress --exclude='*.tmp' /home/user/data/ /backup/data/
+5 Marks - Practice Coding Questions
+Q1. Write a shell script that accepts a number as a command-line argument and prints the multiplication table of that number from 1 to 10 using a while loop.
+Solution:
+#!/bin/bash
+num=$1
+i=1
+while [ $i -le 10 ]; do
+    result=$((num * i))
+    echo "$num x $i = $result"
+    i=$((i + 1))
+done
+Q2. Write the suitable commands for the following operations:
+(i) Create a directory called 'shared_workspace'.
+(ii) Inside 'shared_workspace', create files: 'readme.txt', 'config.ini', and 'script.sh'.
+(iii) Set 'script.sh' to be executable by the owner and readable by everyone.
+(iv) Set 'config.ini' to be readable and writable only by the owner.
+Solution:
+mkdir shared_workspace
+cd shared_workspace
+touch readme.txt config.ini script.sh
+chmod 744 script.sh
+chmod 600 config.ini
+Q3. Write a shell script that accepts a filename and an operation as command-line arguments. The operation can be 'lines', 'words', or 'chars'. Using a case statement, the script should display the count of lines, words, or characters in the file respectively. If an invalid operation is given, display an error message.
+Solution:
+#!/bin/bash
+filename=$1
+operation=$2
+if [ ! -f "$filename" ]; then
+    echo "Error: File not found"
+    exit 1
+fi
+case $operation in
+    lines)
+        count=$(wc -l < "$filename")
+        echo "Lines: $count"
+        ;;
+    words)
+        count=$(wc -w < "$filename")
+        echo "Words: $count"
+        ;;
+    chars)
+        count=$(wc -c < "$filename")
+        echo "Characters: $count"
+        ;;
+    *)
+        echo "Error: Invalid operation. Use lines, words, or chars"
+        exit 1
+        ;;
+esac
+Q4. Write a shell script that:
+(i) Defines an array with elements: ubuntu debian fedora centos arch
+(ii) Defines a function 'search_distro' that accepts a search term and checks if it exists in the array.
+(iii) If found, print the element and its index. If not found, print a 'not found' message.
+(iv) Call the function with 'fedora' and then with 'mint'.
+Solution:
+#!/bin/bash
+distros=(ubuntu debian fedora centos arch)
+
+search_distro() {
+    local search=$1
+    local found=0
+    for i in "${!distros[@]}"; do
+        if [ "${distros[$i]}" == "$search" ]; then
+            echo "'$search' found at index $i"
+            found=1
+            break
+        fi
+    done
+    if [ $found -eq 0 ]; then
+        echo "'$search' not found in the array"
+    fi
+}
+search_distro "fedora"
+search_distro "mint"
+
+2 Marks – Subjective Practice Questions
+Q1. Write the command to display the number of lines, words, and characters in a file called 'notes.txt'.
+Solution:
+wc notes.txt
+Q2. Write the command to recursively remove a directory called 'old_project' and all its contents.
+Solution:
+rm -rf old_project
+Q3. Write the command to display all environment variables in the current shell session.
+Solution:
+env
+# OR
+printenv
+Q4. Write the command to view all the groups a user 'john' belongs to.
+Solution:
+groups john
+# OR
+id -Gn john
+Q5. Write a command pipeline to display the top 3 largest files in the '/var/log' directory sorted by size.
+Solution:
+ls -lS /var/log | head -4
+# OR
+du -a /var/log | sort -rn | head -3
+Q6. Write the commands to mount an ISO file '/home/user/ubuntu.iso' to '/mnt/iso' directory.
+Solution:
+mkdir -p /mnt/iso
+mount -o loop /home/user/ubuntu.iso /mnt/iso
+Q7. Write the command to redirect both stdout and stderr of the command 'find / -name config' to a file called 'results.txt'.
+Solution:
+find / -name config > results.txt 2>&1
+# OR
+find / -name config &> results.txt
+Q8. Write the commands to schedule a one-time job using 'at' command that runs '/opt/backup.sh' at 11:30 PM tonight.
+Solution:
+echo '/opt/backup.sh' | at 23:30
+# OR
+at 23:30 <<< '/opt/backup.sh'
+Q9. Write the commands to create a Docker container named 'webserver' from the 'nginx' image, map host port 8080 to container port 80, and run it in detached mode.
+Solution:
+docker run -d --name webserver -p 8080:80 nginx
+Q10. Write the commands to check the file system integrity of /dev/sda1, first unmounting it, then running the check, and remounting it.
+Solution:
+umount /dev/sda1
+fsck -y /dev/sda1
+mount /dev/sda1 /mnt
+5 Marks - Practice Coding Questions
+Q1. Write a shell script that accepts a sentence as command-line arguments and uses a for loop to print each word on a separate line along with its character count.
+Solution:
+#!/bin/bash
+for word in "$@"; do
+    len=${word}
+    echo "$word : $len characters"
+done
+Q2. Write the suitable commands for the following operations:
+(i) Create a file 'students.txt' containing three lines: Alice, Bob, Charlie (each on a new line).
+(ii) Append a new line 'David' to the file.
+(iii) Sort the file content in reverse alphabetical order and save to 'sorted_students.txt'.
+(iv) Display the content of 'sorted_students.txt'.
+Solution:
+echo -e "Alice\nBob\nCharlie" > students.txt
+echo "David" >> students.txt
+sort -r students.txt > sorted_students.txt
+cat sorted_students.txt
+Q3. Write a shell script that uses an 'until' loop to read user input repeatedly. For each input string:
+(i) Display the string in uppercase using parameter expansion.
+(ii) Display the length of the string.
+(iii) Display the string reversed.
+The loop should stop when the user enters 'quit'.
+Solution:
+#!/bin/bash
+while IFS= read -r line; do
+    if [ "$line" == "quit" ]; then
+        echo "Exiting..."
+        break
+    fi
+    echo "Uppercase: ${line^^}"
+    echo "Length: ${line}"
+    reversed=""
+    for (( i=${line}-1; i>=0; i-- )); do
+        reversed="$reversed${line}"
+    done
+    echo "Reversed: $reversed"
+    echo "---"
+done < /tmp/input.txt
+Q4. Write a shell script that accepts a service name as a command-line argument and performs the following:
+(i) Check if the service is currently running using systemctl.
+(ii) If running, display 'Service is active' and show its PID.
+(iii) If not running, display 'Service is inactive' and attempt to start it.
+(iv) Display the enabled/disabled status of the service.
+Solution:
+#!/bin/bash
+service=$1
+if systemctl is-active --quiet "$service"; then
+    echo "Service '$service' is active"
+    pid=$(systemctl show -p MainPID "$service" | cut -d= -f2)
+    echo "PID: $pid"
+else
+    echo "Service '$service' is inactive"
+    echo "Attempting to start..."
+    systemctl start "$service" 2>/dev/null
+fi
+status=$(systemctl is-enabled "$service" 2>/dev/null)
+echo "Boot status: $status"
