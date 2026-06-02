@@ -1,0 +1,310 @@
+# SHELL SCRIPTING PATTERN CHEAT SHEET
+
+## 1. Hello World
+
+```bash
+echo "Hello World"
+```
+
+## 2. Input and Output
+
+```bash
+read name
+echo $name
+```
+
+## 3. Add Two Numbers
+
+```bash
+read a
+read b
+
+echo $((a+b))
+```
+
+## 4. Largest of Two Numbers
+
+```bash
+read a
+read b
+
+if [ $a -gt $b ]
+then
+    echo "$a is greater"
+else
+    echo "$b is greater"
+fi
+```
+
+## 5. Even or Odd
+
+```bash
+read n
+
+if [ $((n%2)) -eq 0 ]
+then
+    echo "Even"
+else
+    echo "Odd"
+fi
+```
+
+## 6. Positive, Negative or Zero
+
+```bash
+read n
+
+if [ $n -gt 0 ]
+then
+    echo "Positive"
+elif [ $n -lt 0 ]
+then
+    echo "Negative"
+else
+    echo "Zero"
+fi
+```
+
+## 7. Case Statement
+
+```bash
+read choice
+
+case $choice in
+1) echo "One" ;;
+2) echo "Two" ;;
+3) echo "Three" ;;
+*) echo "Invalid" ;;
+esac
+```
+
+## 8. For Loop
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    echo $i
+done
+```
+
+## 9. While Loop
+
+```bash
+i=1
+
+while [ $i -le 5 ]
+do
+    echo $i
+    ((i++))
+done
+```
+
+## 10. Until Loop
+
+```bash
+i=1
+
+until [ $i -gt 5 ]
+do
+    echo $i
+    ((i++))
+done
+```
+
+## 11. Sum 1 to N
+
+```bash
+sum=0
+
+for ((i=1;i<=10;i++))
+do
+    sum=$((sum+i))
+done
+
+echo $sum
+```
+
+## 12. Factorial
+
+```bash
+read n
+
+fact=1
+
+for ((i=1;i<=n;i++))
+do
+    fact=$((fact*i))
+done
+
+echo $fact
+```
+
+## 13. Count Digits
+
+```bash
+read n
+
+count=0
+
+while [ $n -gt 0 ]
+do
+    count=$((count+1))
+    n=$((n/10))
+done
+
+echo $count
+```
+
+## 14. Reverse Number
+
+```bash
+read n
+
+rev=0
+
+while [ $n -gt 0 ]
+do
+    digit=$((n%10))
+    rev=$((rev*10+digit))
+    n=$((n/10))
+done
+
+echo $rev
+```
+
+## 15. File Exists
+
+```bash
+read file
+
+if [ -f "$file" ]
+then
+    echo "Exists"
+else
+    echo "Not Exists"
+fi
+```
+
+## 16. Directory Exists
+
+```bash
+read dir
+
+if [ -d "$dir" ]
+then
+    echo "Exists"
+else
+    echo "Not Exists"
+fi
+```
+
+## 17. Command Line Arguments
+
+```bash
+echo $1
+echo $2
+echo $#
+echo $@
+```
+
+Run:
+
+```bash
+./script.sh hello world
+```
+
+## 18. Star Square Pattern
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=5;j++))
+    do
+        echo -n "* "
+    done
+    echo
+done
+```
+
+## 19. Star Triangle Pattern
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "* "
+    done
+    echo
+done
+```
+
+## 20. Reverse Star Triangle
+
+```bash
+for ((i=5;i>=1;i--))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "* "
+    done
+    echo
+done
+```
+
+## 21. Number Triangle
+
+```bash
+for ((i=1;i<=5;i++))
+do
+    for ((j=1;j<=i;j++))
+    do
+        echo -n "$j "
+    done
+    echo
+done
+```
+
+## 22. Positional Parameters
+
+```bash
+echo $0
+echo $1
+echo $2
+echo $#
+echo $@
+echo $?
+echo $$
+```
+
+## 23. Arithmetic
+
+```bash
+a=10
+b=20
+
+echo $((a+b))
+echo $((a-b))
+echo $((a*b))
+echo $((a/b))
+```
+
+## 24. String Tests
+
+```bash
+[ "$a" = "$b" ]
+[ "$a" != "$b" ]
+[ -z "$a" ]
+[ -n "$a" ]
+```
+
+## 25. Number Tests
+
+```bash
+[ $a -eq $b ]
+[ $a -ne $b ]
+[ $a -gt $b ]
+[ $a -lt $b ]
+[ $a -ge $b ]
+[ $a -le $b ]
+```
